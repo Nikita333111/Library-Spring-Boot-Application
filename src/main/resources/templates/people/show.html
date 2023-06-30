@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        a.button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .separator {
+            border-top: 1px dashed #ccc;
+            margin: 10px 0;
+        }
+
+    </style>
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${person.getFullName() + ', ' + person.getAge()}">VALUE</p>
+<div th:if="${#lists.isEmpty(books)}">The man has not yet taken a single book.</div>
+<div class="separator"></div>
+<div th:if="${not #lists.isEmpty(books)}">
+    <h4>Books:</h4>
+    <div th:each="book : ${books}">
+        <p th:style="${book.isOverdue()}? 'color: red;'" th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getReleaseYear()}">values</p>
+    </div>
+</div>
+
+<div class="separator"></div>
+
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}" class="button">Edit</a>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete" class="button"/>
+</form>
+</body>
+</html>
